@@ -4,7 +4,8 @@
   "description": "A JavaScript object container that provides events and state handling",
   "main": "watchman.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d dist && uglifyjs dist/watchman.js -o dist/watchman.min.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,10 @@
   "bugs": {
     "url": "https://github.com/m3g4p0p/watchman.js/issues"
   },
-  "homepage": "https://github.com/m3g4p0p/watchman.js#readme"
+  "homepage": "https://github.com/m3g4p0p/watchman.js#readme",
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-preset-es2015": "^6.13.2",
+    "uglifyjs": "^2.4.10"
+  }
 }
