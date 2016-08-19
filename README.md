@@ -1,9 +1,14 @@
 # watchman.js
 A minimalist JavaScript object container that provides events and state handling
 
+## Usage
+
+Download `dist/watchman.min.js` and include it in your application as usual.
+
 ## API
 
 ### Initialise
+
 ```javascript
 const watchman = new Watchman();
 ```
@@ -125,9 +130,9 @@ watchman.register('replace', function(replacement) {
 ### `invoke()`
 
 ```javascript
-// Invoke a previously registered event, and call the
-// associated function
-watchman.invoke('replace')({foo: [1, 2, 3]});
+// Invoke a previously registered event, optionally
+// passing additional arguments to the listener
+watchman.invoke('replace', {foo: [1, 2, 3]});
 ```
 
 ### Chaining

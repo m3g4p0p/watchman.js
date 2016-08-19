@@ -1,4 +1,4 @@
-window.Watchman = function(attributes = {}) {
+(window === undefined ? global : window).Watchman = function(attributes = {}) {
 
   const CHANGE = 'change';
   const REMEMBER = 'remember';
@@ -16,17 +16,15 @@ window.Watchman = function(attributes = {}) {
 
   return {
     
-    invoke(event) {
+    invoke(event, ...args) {
       const method = methods[event];
 
       if (!method) return;
 
-      return (...args) => {
-        const result = method.call(this, ...args);
+      const result = method.call(this, ...args);
+      this.trigger(event, ...args);
 
-        this.trigger(event, ...args);
-        return result;
-      }
+      return result;
     },
 
     register(event, method) {
@@ -96,6 +94,7 @@ window.Watchman = function(attributes = {}) {
       }
 
       this.trigger(_event(REMEMBER, property, value), ...args);
+
       return this;
     },
 
@@ -111,6 +110,7 @@ window.Watchman = function(attributes = {}) {
       }
 
       this.trigger(_event(RESTORE, property, value), ...args);
+
       return this;
     },
 
@@ -150,6 +150,7 @@ window.Watchman = function(attributes = {}) {
       }
 
       this.trigger(_event(CHANGE, property, value), ...args);
+
       return this;
     },
 

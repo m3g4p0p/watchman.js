@@ -4,7 +4,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-window.Watchman = function () {
+(window === undefined ? global : window).Watchman = function () {
   var _ref;
 
   var attributes = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
@@ -30,22 +30,18 @@ window.Watchman = function () {
 
   return _ref = {
     invoke: function invoke(event) {
-      var _this = this;
-
       var method = methods[event];
 
       if (!method) return;
 
-      return function () {
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
-        }
+      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
 
-        var result = method.call.apply(method, [_this].concat(args));
+      var result = method.call.apply(method, [this].concat(args));
+      this.trigger.apply(this, [event].concat(args));
 
-        _this.trigger.apply(_this, [event].concat(args));
-        return result;
-      };
+      return result;
     },
     register: function register(event, method) {
 
@@ -53,7 +49,7 @@ window.Watchman = function () {
       return this;
     },
     trigger: function trigger(event) {
-      var _this2 = this;
+      var _this = this;
 
       for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
         args[_key2 - 1] = arguments[_key2];
@@ -63,8 +59,12 @@ window.Watchman = function () {
 
       if (!callbacks) return;
 
+      if (typeof event === 'string') {
+        event = _event(event);
+      }
+
       callbacks.forEach(function (callback) {
-        return callback.call.apply(callback, [_this2, event].concat(args));
+        return callback.call.apply(callback, [_this, event].concat(args));
       });
 
       return this;
@@ -115,6 +115,7 @@ window.Watchman = function () {
       }
 
       this.trigger.apply(this, [_event(REMEMBER, property, value)].concat(args));
+
       return this;
     },
     restore: function restore(property) {
@@ -133,6 +134,7 @@ window.Watchman = function () {
       }
 
       this.trigger.apply(this, [_event(RESTORE, property, value)].concat(args));
+
       return this;
     },
     unset: function unset(property) {
@@ -175,6 +177,7 @@ window.Watchman = function () {
     }
 
     this.trigger.apply(this, [_event(CHANGE, property, value)].concat(_toConsumableArray(args)));
+
     return this;
   }), _defineProperty(_ref, 'get', function get(property) {
 
