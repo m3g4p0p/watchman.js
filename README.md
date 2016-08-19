@@ -12,15 +12,21 @@ Download `dist/watchman.min.js` and include it in your application as usual.
 ```javascript
 const watchman = new Watchman();
 ```
+
 or
+
 ```javascript
 const watchman = new Watchman(object);
 ```
 
+### Chaining
+
+All non-getter methods are chainable.
+
 ### `get()`
 
 ```javascript
-// Get a specific property
+// Get a specific property like
 const value = watchman.get('foo');
 
 // Get a shallow copy of the entire object
@@ -43,7 +49,7 @@ watchman.set({foo: 42, bar: 'baz'});
 // Delete a specific property
 watchman.unset('foo');
 
-// Unset the entire object
+// Unset the entire object (i.e. {})
 watchman.unset();
 ```
 
@@ -84,8 +90,8 @@ const objectStates = watchman.states();
 ```javascript
 // Bind an event listener. Native events are "change" 
 // (triggered by set()and unset()), "remember" and "restore"
-watchman.on('change', function changeHandler(event, ...args) {
-  console.log(this.get());
+watchman.on('change', function changeHandler(event) {
+  console.log(event, this.get());
 });
 
 // The "event" parameter passed to the handler function is 
@@ -93,8 +99,12 @@ watchman.on('change', function changeHandler(event, ...args) {
 // "property" (the affected property or "undefined" if the 
 // whole object was affected) and "data" (like the restored 
 // state or the changed value). When using custom events, 
-// it may be just contain "type" string. "...args" are additional 
-// arguments that may be passed to any listenable method, e.g.
+// it may just contain "type". You can also pass additional
+// arguments from any listenable method, like e.g.
+watchman.on('change', function changeHandler(event, that) {
+  console.log(event, that);
+});
+
 watchman.set({foo: 43}, this);
 ```
 
@@ -112,18 +122,21 @@ watchman.off('change', changeHandler);
 ### `trigger()`
 
 ```javascript
-// Trigger a specific event, optionally passing additional
-// arguments to the corresponding listener
-watchman.trigger(event, ...args);
+// Trigger a specific event, again optionally passing 
+// additional arguments to the corresponding listener
+watchman.trigger('change');
+watchman.trigger('change', 'foo', 'bar');
 ```
 
 ### `register()`
 
 ```javascript
-// Register a custom event, e.g.
-watchman.register('replace', function(replacement) {
-  this.set();
-  this.set(replacement);
+// Register a custom event, like e.g.
+watchman.register('reset', function(replacement) {
+  this.unset().set(replacement);
+
+  // Return this to maintain chainability
+  return this;
 });
 ```
 
@@ -131,13 +144,9 @@ watchman.register('replace', function(replacement) {
 
 ```javascript
 // Invoke a previously registered event, optionally
-// passing additional arguments to the listener
-watchman.invoke('replace', {foo: [1, 2, 3]});
+// passing additional arguments to listeners, e.g.
+const result = watchman.invoke('reset', {foo: [1, 2, 3]});
 ```
-
-### Chaining
-
-All non-getter methods are chainable.
 
 ## License
 MIT
