@@ -1,0 +1,27 @@
+{
+  "name": "watchman.js",
+  "version": "0.1.0",
+  "description": "A JavaScript object container that provides events and state handling",
+  "main": "watchman.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m3g4p0p/watchman.js.git"
+  },
+  "keywords": [
+    "javascript",
+    "js",
+    "state",
+    "event",
+    "container",
+    "micromodel"
+  ],
+  "author": "m3g4p0p",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/m3g4p0p/watchman.js/issues"
+  },
+  "homepage": "https://github.com/m3g4p0p/watchman.js#readme"
+}
