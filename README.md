@@ -97,7 +97,7 @@ watchman.on('change', function changeHandler(event) {
 
 // The "event" parameter passed to the handler function is 
 // an object with the properties "type" ("change" etc.), 
-// "property" (the affected property or "undefined" if the 
+// "prop" (the affected property or "undefined" if the 
 // whole object was affected) and "data" (like the restored 
 // state or the changed value). When using custom events, 
 // it may just contain "type". You can also pass additional
