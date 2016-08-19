@@ -40,6 +40,10 @@ window.Watchman = function(attributes = {}) {
 
       if (!callbacks) return;
 
+      if (typeof event === 'string') {
+        event = _event(event);
+      }
+
       callbacks.forEach(
         callback => callback.call(this, event, ...args)
         );

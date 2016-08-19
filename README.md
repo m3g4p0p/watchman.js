@@ -25,9 +25,10 @@ const object = watchman.get();
 ### `set()`
 
 ```javascript
+// Set a specific property
 watchman.set('foo', 42);
 
-// Or:
+// Set multiple properties
 watchman.set({foo: 42, bar: 'baz'});
 ```
 
@@ -54,9 +55,9 @@ watchman.remember();
 ### `restore()`
 
 ```javascript
-// Restore a previously remembered property (note
-// that this will not restore properties as remembered
-// from the entire object)
+// Restore a previously remembered property (note that 
+// this will not restore properties as remembered from 
+// the entire object)
 watchman.restore('foo');
 
 // Remember a previously remembered object state
@@ -76,20 +77,19 @@ const objectStates = watchman.states();
 ### `on()`
 
 ```javascript
-// Bind an event listener. Native events are "change" (triggered
-// by set()and unset()), "remember" and "restore"
+// Bind an event listener. Native events are "change" 
+// (triggered by set()and unset()), "remember" and "restore"
 watchman.on('change', function changeHandler(event, ...args) {
   console.log(this.get());
 });
 
-// The "event" parameter passed to the handler function
-// is an object with the properties "type" ("change" etc.), 
-// "property" (the affected property or "undefined" if 
-// the whole object was affected) and "data" (like the restored 
-// state or the changed value). When using custom
-// events, it may be just the "type" string.
-// "...args" are additional arguments that may be
-// passed to any listenable method, e.g.
+// The "event" parameter passed to the handler function is 
+// an object with the properties "type" ("change" etc.), 
+// "property" (the affected property or "undefined" if the 
+// whole object was affected) and "data" (like the restored 
+// state or the changed value). When using custom events, 
+// it may be just contain "type" string. "...args" are additional 
+// arguments that may be passed to any listenable method, e.g.
 watchman.set({foo: 43}, this);
 ```
 
@@ -125,9 +125,14 @@ watchman.register('replace', function(replacement) {
 ### `invoke()`
 
 ```javascript
-// Invoke a previously registered event
-watchman.invoke('replace', {foo: [1, 2, 3]});
+// Invoke a previously registered event, and call the
+// associated function
+watchman.invoke('replace')({foo: [1, 2, 3]});
 ```
+
+### Chaining
+
+All non-getter methods are chainable.
 
 ## License
 MIT
