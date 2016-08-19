@@ -1,8 +1,12 @@
 'use strict';
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 window.Watchman = function () {
+  var _ref;
+
   var attributes = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
 
@@ -24,7 +28,7 @@ window.Watchman = function () {
     return value !== undefined;
   };
 
-  return {
+  return _ref = {
     invoke: function invoke(event) {
       var _this = this;
 
@@ -65,12 +69,6 @@ window.Watchman = function () {
 
       return this;
     },
-    on: function on(event, callback) {
-
-      subscribers[event] = subscribers[event] || [];
-      subscribers[event].push(callback);
-      return this;
-    },
     off: function off(event, subscriber) {
       var callbacks = subscribers[event];
 
@@ -85,6 +83,20 @@ window.Watchman = function () {
       }
 
       return this;
+    },
+    on: function on(event, callback) {
+
+      subscribers[event] = subscribers[event] || [];
+      subscribers[event].push(callback);
+      return this;
+    },
+    states: function states(property) {
+
+      if (property) {
+        return properties[property];
+      } else {
+        return _states;
+      }
     },
     remember: function remember(property) {
       var value;
@@ -140,39 +152,36 @@ window.Watchman = function () {
       }
 
       return this;
-    },
-    states: function states(property) {
-
-      if (property) {
-        return properties[property];
-      } else {
-        return _states;
-      }
-    },
-    set: function set(property, value) {
-      for (var _len6 = arguments.length, args = Array(_len6 > 2 ? _len6 - 2 : 0), _key6 = 2; _key6 < _len6; _key6++) {
-        args[_key6 - 2] = arguments[_key6];
-      }
-
-      if (typeof property === 'string') {
-        attributes[property] = value;
-      } else {
-        args = [value].concat(_toConsumableArray(args));
-        value = property;
-        property = undefined;
-        Object.assign(attributes, value);
-      }
-
-      this.trigger.apply(this, [_event(CHANGE, property, value)].concat(_toConsumableArray(args)));
-      return this;
-    },
-    get: function get(property) {
-
-      if (property) {
-        return attributes[property];
-      } else {
-        return Object.assign({}, attributes);
-      }
     }
-  };
+  }, _defineProperty(_ref, 'states', function states(property) {
+
+    if (property) {
+      return properties[property];
+    } else {
+      return _states;
+    }
+  }), _defineProperty(_ref, 'set', function set(property, value) {
+    for (var _len6 = arguments.length, args = Array(_len6 > 2 ? _len6 - 2 : 0), _key6 = 2; _key6 < _len6; _key6++) {
+      args[_key6 - 2] = arguments[_key6];
+    }
+
+    if (typeof property === 'string') {
+      attributes[property] = value;
+    } else {
+      args = [value].concat(_toConsumableArray(args));
+      value = property;
+      property = undefined;
+      Object.assign(attributes, value);
+    }
+
+    this.trigger.apply(this, [_event(CHANGE, property, value)].concat(_toConsumableArray(args)));
+    return this;
+  }), _defineProperty(_ref, 'get', function get(property) {
+
+    if (property) {
+      return attributes[property];
+    } else {
+      return Object.assign({}, attributes);
+    }
+  }), _ref;
 };

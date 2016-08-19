@@ -47,13 +47,6 @@ window.Watchman = function(attributes = {}) {
       return this;
     },
 
-    on(event, callback) {
-
-      subscribers[event] = subscribers[event] || [];
-      subscribers[event].push(callback);
-      return this;
-    },
-
     off(event, subscriber) {
       const callbacks = subscribers[event];
 
@@ -68,6 +61,22 @@ window.Watchman = function(attributes = {}) {
       }
 
       return this;
+    },
+
+    on(event, callback) {
+
+      subscribers[event] = subscribers[event] || [];
+      subscribers[event].push(callback);
+      return this;
+    },
+
+    states(property) {
+
+      if (property) {
+        return properties[property];
+      } else {
+        return states;
+      }
     },
 
     remember(property, ...args) {
