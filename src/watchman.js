@@ -12,6 +12,7 @@
   const _event = (type, prop, data) => ({
     type, prop, data
   });
+
   const _isset = value => value !== undefined;
 
   return {
@@ -30,6 +31,7 @@
     register(event, method) {
 
       methods[event] = method;
+
       return this;
     },
 
@@ -69,15 +71,16 @@
 
       subscribers[event] = subscribers[event] || [];
       subscribers[event].push(callback);
+
       return this;
     },
 
     states(property) {
 
       if (property) {
-        return properties[property];
+        return properties[property].slice();
       } else {
-        return states;
+        return states.map(object => Object.assign({}, object));
       }
     },
 
@@ -127,15 +130,6 @@
       }
 
       return this;
-    },
-
-    states(property) {
-
-      if (property) {
-        return properties[property];
-      } else {
-        return states;
-      }
     },
 
     set(property, value, ...args) {

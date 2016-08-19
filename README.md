@@ -1,5 +1,6 @@
 # watchman.js
-A minimalist JavaScript object container that provides events and state handling
+
+A minimalist JavaScript object container that provides events and state handling.
 
 ## Usage
 
@@ -89,7 +90,7 @@ const objectStates = watchman.states();
 
 ```javascript
 // Bind an event listener. Native events are "change" 
-// (triggered by set()and unset()), "remember" and "restore"
+// (triggered by set() and unset()), "remember" and "restore"
 watchman.on('change', function changeHandler(event) {
   console.log(event, this.get());
 });
