@@ -30,6 +30,10 @@ All non-getter methods are chainable.
 // Get a specific property like
 const value = watchman.get('foo');
 
+// Get multiple properties as a new object,
+// like kind of a key filter
+const values = watchman.get('foo', 'bar');
+
 // Get a shallow copy of the entire object
 const object = watchman.get();
 ```
