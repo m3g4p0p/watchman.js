@@ -169,7 +169,7 @@
       return this;
     },
 
-     restore(property, ...args) {
+    restore(property, ...args) {
       var value;
 
       if (property) {
