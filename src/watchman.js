@@ -1,3 +1,8 @@
+/**
+ * Watchman.js
+ *
+ * @author m3g4p0p
+ */
 (window === undefined ? global : window).Watchman = function(subject = {}) {
 
   const CHANGE = 'change';
@@ -77,7 +82,7 @@
     // Event methods //
     ///////////////////
 
-    on(event, callback) {
+    on(event, property, callback) {
 
       subscribers[event] = subscribers[event] || [];
       subscribers[event].push(callback);
@@ -97,7 +102,7 @@
       else {
         subscribers[event] = callbacks.filter(
           callback => subscriber !== callback
-          );
+        );
       }
 
       return this;
