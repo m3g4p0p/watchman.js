@@ -82,7 +82,7 @@
     // Event methods //
     ///////////////////
 
-    on(event, property, callback) {
+    on(event, callback) {
 
       subscribers[event] = subscribers[event] || [];
       subscribers[event].push(callback);
@@ -119,7 +119,7 @@
 
       callbacks.forEach(
         callback => callback.call(this, event, ...args)
-        );
+      );
 
       return this;
     },
