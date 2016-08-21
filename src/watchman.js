@@ -29,7 +29,7 @@
     get(...properties) {
 
       if (properties.length === 1) {
-        return subject[property];
+        return subject[properties[0]];
       }
 
       else if (properties.length > 1) {

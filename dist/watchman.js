@@ -42,7 +42,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       }
 
       if (properties.length === 1) {
-        return subject[property];
+        return subject[properties[0]];
       } else if (properties.length > 1) {
         return properties.reduce(function (obj, key) {
           return Object.defineProperty(obj, key, { value: subject[key] });
