@@ -5,7 +5,8 @@
   "main": "watchman.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src -d dist && uglifyjs dist/watchman.js -o dist/watchman.min.js"
+    "build": "babel src -d dist && uglifyjs dist/watchman.js -o dist/watchman.min.js",
+    "watch": "watch 'npm run build' src"
   },
   "repository": {
     "type": "git",

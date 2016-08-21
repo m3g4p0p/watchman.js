@@ -93,7 +93,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     // Event methods //
     ///////////////////
 
-    on: function on(event, property, callback) {
+    on: function on(event, callback) {
 
       subscribers[event] = subscribers[event] || [];
       subscribers[event].push(callback);
