@@ -11,13 +11,13 @@ Download `dist/watchman.min.js` and include it in your application as usual.
 ### Initialise
 
 ```javascript
-const watchman = new Watchman();
+const watchman = createWM();
 ```
 
 or
 
 ```javascript
-const watchman = new Watchman(object);
+const watchman = createWM(object);
 ```
 
 ### Chaining

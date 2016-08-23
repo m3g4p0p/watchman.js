@@ -3,7 +3,7 @@
  *
  * @author m3g4p0p
  */
-(window === undefined ? global : window).Watchman = function(subject = {}) {
+(window === undefined ? global : window).createWM = function(subject = {}) {
 
   const CHANGE = 'change';
   const REMEMBER = 'remember';
@@ -84,8 +84,7 @@
 
     on(event, callback) {
 
-      subscribers[event] = subscribers[event] || [];
-      subscribers[event].push(callback);
+      (subscribers[event] = subscribers[event] || []).push(callback);
 
       return this;
     },
